@@ -12,6 +12,7 @@ public class Chrono {
 	private String name;
 	
 	public Chrono(String name) {
+		
 		setName(name);
 		parent = null;
 		children = new TreeSet<>();
@@ -41,6 +42,10 @@ public class Chrono {
 	
 	public long getMeasuredTime() {
 		return stopwatch.getMeasuredTime();
+	}
+	
+	public boolean isRunning() {
+		return stopwatch.isRunning();
 	}
 
 	public String getName() {
