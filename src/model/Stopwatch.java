@@ -2,33 +2,56 @@ package model;
 
 public class Stopwatch {
 	
-	//TODO
+	private long alreadyMeasuredTime;
 	
-	private long startMilliSeconds;
+	private boolean running;
+	
+	private long startMilliseconds;
 
 	public Stopwatch() {
+		
+		alreadyMeasuredTime = 0;
+		running = false;
 	}
 
 	public void start() {
-		// TODO Auto-generated method stub
+		
+		if(running)
+			throw new IllegalStateException("You can't start a stopwatch that's already running!");
+		
+		running = true;
+		
+		startMilliseconds = System.currentTimeMillis();
 		
 	}
 
 	public void stop() {
-		// TODO Auto-generated method stub
+		
+		if(!running)
+			throw new IllegalStateException("You can't stop a stopwatch that's already stopped!");
+		
+		alreadyMeasuredTime += getTimeMeasuringNow();
+		
+		running = false;
 		
 	}
 
 	public boolean isRunning() {
-		// TODO Auto-generated method stub
-		return false;
+		return running;
 	}
 
 	public long getMeasuredTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		long measuredTime = alreadyMeasuredTime;
+		
+		if(running)
+			measuredTime += getTimeMeasuringNow();
+		
+		return measuredTime;
 	}
 	
-	
-
+	private long getTimeMeasuringNow() {
+		
+		return System.currentTimeMillis() - startMilliseconds;
+	}
 }
