@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Chrono {
 	
-	private Chrono parent;
+	private Set<Chrono> parents;
 	private Set<Chrono> children;
 	
 	private Stopwatch stopwatch;
@@ -14,23 +14,27 @@ public class Chrono {
 	public Chrono(String name) {
 		
 		setName(name);
-		parent = null;
-		children = new TreeSet<>();
+		parents = new HashSet<>();
+		children = new HashSet<>();
 		stopwatch = new Stopwatch();
 	}
 	
 	public void start() {
 		stopwatch.start();
 		
-		if(parent != null)
-			parent.start();
+		for(Chrono parent : parents) {
+			if(!parent.isRunning())
+				parent.start();
+		}
 	}
 	
 	public void stop() {
 		stopwatch.stop();
 		
-		for(Chrono chronoChildren : children)
-			chronoChildren.stop();
+		for(Chrono child : children) {
+			if(child.isRunning())
+				child.stop();
+		}
 	}
 	
 	public void switchState() {
@@ -46,6 +50,25 @@ public class Chrono {
 	
 	public boolean isRunning() {
 		return stopwatch.isRunning();
+	}
+	
+	private void addParent(Chrono parent) {
+		parents.add(parent);
+	}
+	
+	private void removeParent(Chrono parent) {
+		parents.remove(parent);
+	}
+	
+	public void addChild(Chrono child) {
+		child.addParent(this);
+		children.add(child);
+	}
+	
+	public void removeChild(Chrono child) {
+		
+		child.removeParent(this);
+		children.remove(child);
 	}
 
 	public String getName() {

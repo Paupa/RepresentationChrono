@@ -43,5 +43,42 @@ public class ChronoTest {
 		
 		assertFalse(c.isRunning());
 	}
+	
+	@Test
+	public void testParentChildrenSwitching() {
+		
+		Chrono women = new Chrono("Women");
+		Chrono specificWoman = new Chrono("Specific woman");
+		
+		women.addChild(specificWoman);
+		
+		women.start();
+		
+		assertTrue(women.isRunning());
+		assertFalse(specificWoman.isRunning());
+		
+		women.stop();
+		
+		assertFalse(women.isRunning());
+		
+		specificWoman.start();
+		
+		assertTrue(specificWoman.isRunning());
+		assertTrue(women.isRunning());
+		
+		specificWoman.stop();
+		
+		assertFalse(specificWoman.isRunning());
+		assertTrue(women.isRunning());
+		
+		specificWoman.start();
+		
+		assertTrue(specificWoman.isRunning());
+		
+		women.stop();
+		
+		assertFalse(women.isRunning());
+		assertFalse(specificWoman.isRunning());
+	}
 
 }
