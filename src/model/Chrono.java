@@ -1,6 +1,7 @@
 package model;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Chrono {
 	
@@ -45,6 +46,7 @@ public class Chrono {
 	}
 	
 	public long getMeasuredTime() {
+		
 		return stopwatch.getMeasuredTime();
 	}
 	
