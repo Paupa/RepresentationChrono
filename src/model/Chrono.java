@@ -45,9 +45,26 @@ public class Chrono {
 			start();
 	}
 	
-	public long getMeasuredTime() {
+	public long getMeasuredTimeMillis() {
 		
 		return stopwatch.getMeasuredTime();
+	}
+	
+	public String getMeasuredTime() {
+		long millis = getMeasuredTimeMillis();
+		
+		String measuredTime = String.format("%02d:%02d:%02d", 
+			    TimeUnit.MILLISECONDS.toHours(millis),
+			    TimeUnit.MILLISECONDS.toMinutes(millis) - 
+			    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+			    TimeUnit.MILLISECONDS.toSeconds(millis) - 
+			    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+		
+		if(TimeUnit.MILLISECONDS.toHours(millis) == 0)
+			measuredTime = measuredTime.substring(3);
+	
+		
+		return measuredTime;
 	}
 	
 	public boolean isRunning() {

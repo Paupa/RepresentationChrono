@@ -20,7 +20,7 @@ public class ChronoTest {
 		for(int i = 0; i < 1000000; i++);
 		
 		assertTrue(c.isRunning());
-		assertTrue(c.getMeasuredTime() > 0);
+		assertTrue(c.getMeasuredTimeMillis() > 0);
 		
 		c.stop();
 		
